@@ -10,14 +10,14 @@ x zeit
 
 - random storys 
 X timelines
-- zeit
+x zeit
 - speichern
-- gamespeed
+x gamespeed
 
 
 fixes:
 X print var changes
-improve time prints
+x improve time prints
 
 
 

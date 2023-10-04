@@ -72,16 +72,24 @@ intro = [
               ["Ressourcen sammeln",
                "Truppen ausbilden"],
                [[["say","erek","Das ist eine gute Idee"],
-                   ["newTask",5,"Erek: ressourcen sammeln",[["say","erek","ich habe fertig gesammelt"],["set","holz",50],["set","stein",30]]]],
+                   ["newTask",5,"Erek: ressourcen sammeln",[["say","erek","ich habe fertig gesammelt"],["set","holz",50],["set","stein",30],["time",5],["wait",4]]]],
                 [["say","erek","Wir haben aber keine Kaserne"],["retry"],["wait"]]]
               ]],
         ["runTasks"],
-        ["time",5]
+        ["clear"]
            
 
         ]
 
-             
+game = [["sideQuest",3,[["a" == "b","var to story"],]]]  
+
+
+
+
+
+
+
+
 
 teststr = [    ["set","erekGefallen", 15],
                ["set","pilgrimGefallen", -15],

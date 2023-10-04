@@ -9,6 +9,7 @@ from rich.console import Console
 
 console = Console()
 debug = 1
+gameSpeed = 0.1
 
 class Game:
     def __init__(self, pcharacter, pvars) -> None:
@@ -105,7 +106,7 @@ class Game:
     def playMission(self, pMission):
         for abschnitt in pMission:
             self.runText(abschnitt)
-    1
+
     def runText(self, pinput):
         if self.quBuffer == "":
             self.quBuffer = pinput
@@ -148,11 +149,11 @@ class Game:
                 """["wait", optional the time to be waited]
                 """
                 if len(pinput) <= 1:
-                    waitTime = 0.5
+                    waitTime = 2
                 else:
                     waitTime = pinput[1]
                 if debug:
-                    time.sleep(waitTime)
+                    time.sleep(waitTime*gameSpeed)
             case "set":
                 """
                 ["set","name of the var","the amout to be changed","optional a boolian that prints the changestring if true. Default is true"]
@@ -185,6 +186,8 @@ class Game:
                         self.playMission(bar[2])
                     self.barList = []
                     self.barListBuffer = []
+            case "sideQuest":
+                pass
             case "time":
                 cDay = self.varGet("day")
                 cDay += pinput[1]
@@ -195,7 +198,7 @@ class Game:
                 #print output
                 pinput.append(True)
                 if pinput[2]:
-                    self.runText(["say","game",":clock: [rgb(255,140,20)]Es sind ",str(pinput[1]),"Tage vergangen [/rgb(255,140,20)]"])
+                    self.runText(["say","game",":clock8: [rgb(255,200,100)]Es sind "+str(pinput[1])+" Tage vergangen du bist im Jahr "+str(self.varGet("jahr"))+" und du hast noch "+str(365-self.varGet("day"))+" Tage bis zum ende des Jahres[/rgb(255,200,100)] :clock8:"])
             case "":
                 print("\n")
             case _:
@@ -226,3 +229,4 @@ if __name__ == "__main__":
     myGame = Game(textQuelle.setupCharacter, textQuelle.setupVars)
     #testVarsandChars()
     myGame.playMission(textQuelle.intro)
+    myGame.playMission(textQuelle.game)
