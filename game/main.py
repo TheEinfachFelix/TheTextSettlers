@@ -12,6 +12,8 @@ zeit
 X timelines
 - zeit
 - speichern
+- gamespeed
+
 
 fixes:
 X print var changes
