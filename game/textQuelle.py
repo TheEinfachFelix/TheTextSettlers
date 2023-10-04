@@ -76,6 +76,7 @@ intro = [
                 [["say","erek","Wir haben aber keine Kaserne"],["retry"],["wait"]]]
               ]],
         ["runTasks"],
+        ["time",5]
            
 
         ]

@@ -185,6 +185,17 @@ class Game:
                         self.playMission(bar[2])
                     self.barList = []
                     self.barListBuffer = []
+            case "time":
+                cDay = self.varGet("day")
+                cDay += pinput[1]
+                if cDay <= 365:
+                    self.varSet("jahr",self.varGet("jahr")+1)
+                    cDay -= 365
+                self.varSet("day",cDay)
+                #print output
+                pinput.append(True)
+                if pinput[2]:
+                    self.runText(["say","game",":clock: [rgb(255,140,20)]Es sind ",str(pinput[1]),"Tage vergangen [/rgb(255,140,20)]"])
             case "":
                 print("\n")
             case _:

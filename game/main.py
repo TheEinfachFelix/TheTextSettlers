@@ -6,7 +6,7 @@ TODO
 Storysting:
 if
 random
-zeit
+x zeit
 
 - random storys 
 X timelines
@@ -15,6 +15,7 @@ X timelines
 
 fixes:
 X print var changes
+improve time prints
 
 
 
