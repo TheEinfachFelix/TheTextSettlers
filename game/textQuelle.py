@@ -81,21 +81,15 @@ intro = [
 
         ]
 
-game = [["sideQuest",3,[["a" == "b","var to story"],]]]  
+questBurgBauen = [["say","game"," Burg"],        
+                  ]
+questMaterialSammeln = [["say","game"," Material"],    
+                  ]
+questBauernUnterstutzen = [["say","game"," Bauer"],    
+                  ]
+questSteuernsammeln = [["say","game"," Steuer"],    
+                  ]
+
+game = [["sideQuest",3,[["!gold! >= 5",questBurgBauen],["!gold! >= 50",questMaterialSammeln,True],["1",questBauernUnterstutzen],["!jahr! >= 1",questSteuernsammeln],]]]  
 
 
-
-
-
-
-
-
-
-teststr = [    ["set","erekGefallen", 15],
-               ["set","pilgrimGefallen", -15],
-               ["set","bewohnerGefallen",12],
-               ["set","gold",-200],
-               ["set","bewohner",80],
-               ["set","essen",-25],
-               ["set","holz",70],
-               ["set","stein",-2],]

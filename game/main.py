@@ -4,7 +4,7 @@
 """
 TODO
 Storysting:
-if
+x if
 random
 x zeit
 
@@ -19,6 +19,8 @@ fixes:
 X print var changes
 x improve time prints
 
+if play once gucken ob funktioniert
+if random fixen
 
 
 """

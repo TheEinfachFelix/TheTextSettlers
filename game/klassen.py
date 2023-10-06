@@ -103,6 +103,15 @@ class Game:
                 if keyboard.is_pressed(i+2) or keyboard.is_pressed("num "+str(i+1)):
                     return i+1
 
+    def checkCondition(self, pcondition):
+        #print(pcondition)
+        #print(bool(pcondition))
+        while pcondition.find("!") != -1: # to replace all vars 
+            t1 = pcondition[pcondition.find("!")+1:] # removes all infront the varname
+            t2 = t1[:t1.find("!")]  # removes all behind the varname
+            pcondition = pcondition.replace("!"+t2+"!",str(self.varGet(t2))) # replaces the varname with the value of the var
+        return eval(pcondition) ####################################-----warning: eval() used here-----####################################
+
     def playMission(self, pMission):
         for abschnitt in pMission:
             self.runText(abschnitt)
@@ -187,7 +196,23 @@ class Game:
                     self.barList = []
                     self.barListBuffer = []
             case "sideQuest":
-                pass
+                numberOfQuests = pinput[1]
+                questOptions = pinput[2]
+                randCoice = 0
+                while numberOfQuests != 0:
+                    randCoice = int((self.varGet("seed")-randCoice)%len(questOptions))
+                    #print(not randCoice > len(questOptions)-1)
+                    if not randCoice > len(questOptions)-1:
+                        #print(self.checkCondition(questOptions[randCoice][0]))
+                        if self.checkCondition(questOptions[randCoice][0]):
+                            self.playMission(questOptions[randCoice][1])
+                            questOptions[randCoice].append(False)
+                            if not questOptions[randCoice][2]:
+                                
+                                questOptions[randCoice][0] = "False"
+                                print(questOptions[randCoice][0])
+                            numberOfQuests -= 1
+
             case "time":
                 cDay = self.varGet("day")
                 cDay += pinput[1]
@@ -204,21 +229,6 @@ class Game:
             case _:
                 print(f'error in "Game.runText" with ->{pinput}<-')
 
-def testVarsandChars():
-    
-    myGame.characterSay("dario","ich bin Dario")
-    myGame.characterSay("erek","ich bin Erek")
-    myGame.characterSay("pilgrim","ich bin Pilgrim")
-    myGame.characterSay("pilli","ich bin Pilgrim")
-    myGame.characterSay("game","dasa ist ein test")
-    myGame.varSet("gold",5)
-    myGame.varSet("seed",5)
-    myGame.varSet("test",5)
-    print(myGame.varGet("gold"))
-    print(myGame.varGet("seed"))
-    print(myGame.varGet("test"))
-    print(myGame.poll("das ist ein test", ["option a", "option b"]))
-
 
 
 
@@ -227,6 +237,8 @@ def testVarsandChars():
 
 if __name__ == "__main__":
     myGame = Game(textQuelle.setupCharacter, textQuelle.setupVars)
-    #testVarsandChars()
-    myGame.playMission(textQuelle.intro)
+    #######myGame.playMission(textQuelle.intro)
+
+
+
     myGame.playMission(textQuelle.game)
