@@ -8,7 +8,7 @@ setupCharacter = [["dario",[":crown: [rgb(255,140,20)]  Dario:[/rgb(255,140,20)]
 setupVars = [
              ["seed","r",random.randint(1585411,994599399),[""]],
              ["jahr","rw",1,""],
-             ["day","rw",1,""],
+             ["day","rw",0,""],
 
              ["gold","rw",3465,"[rgb(255,210,0)]Gold:[/rgb(255,210,0)] !oldVal! -> !change! -> !newVal!"],
              ["bewohner","rw",72,"[rgb(200,160,255)]Bewohner:[/rgb(200,160,255)] !oldVal! -> !change! -> !newVal!"],
@@ -20,7 +20,8 @@ setupVars = [
              ["erekGefallen","rw",75,"[rgb(50,200,190)]Ereks[/rgb(50,200,190)] meinung gegenüber Dario hat sich um !change! geändert und ist jetzt !newVal!"],
              ["pilgrimGefallen","rw",75,f"[rgb(70,220,50)]Pilgrims[/rgb(70,220,50)] meinung gegenüber Dario hat sich um !change! geändert und ist jetzt !newVal!"],
 
-             
+             ["def","rw",50,"[rgb(50,100,255)]Verteidigung:[/rgb(50,100,255)] !oldVal! -> !change! -> !newVal!"],
+             ["att","rw",10,"[rgb(255,100,50)]Angriff:[/rgb(255,100,50)] !oldVal! -> !change! -> !newVal!"],
              ]
 
 intro = [
@@ -85,11 +86,55 @@ questBurgBauen = [["say","game"," Burg"],
                   ]
 questMaterialSammeln = [["say","game"," Material"],    
                   ]
-questBauernUnterstutzen = [["say","game"," Bauer"],    
-                  ]
-questSteuernsammeln = [["say","game"," Steuer"],    
-                  ]
+questGeheimnissRuinen = [     ["say","erek","Hallo Dario."],
+                              ["poll",["Deine Antwort:",
+                                    ["Hallo Erek","Habe gerade keine Zeit"],
+                                    [[  ["clear"],
+                                        ["say","dario","Hallo Erek"],
+                                        ["say","erek","Heute ist ja ein wundervolles Wetter."],
+                                        ["poll",["Deine Antwort:",
+                                                ["Ja finde ich auch","Ja das Wetter ist fast so schön wie deine Mutter"],
+                                                [[["clear"],["say","dario","Ja finde ich auch"]],
+                                                [     ["clear"],
+                                                      ["say","dario","Ja das Wetter ist fast so schön wie deine Mutter"],
+                                                      ["say","erek","meine Mutter?"],
+                                                      ["wait",3],
+                                                      ["say","erek","ist auch egal"],
+                                     ]]]]],[["clear"],["say","dario","Habe gerade keine Zeit"],["set","erekGefallen",-15]]]]],
+                              ["say","erek","ich bin hier um etwas mitzuteilen"],
+                              ["say","dario","was gibt es?"],
+                              ["say","erek","du weißt ja wenn du am See durch die Schlucht gehst"],
+                              ["say","erek","kommst du ja zu dem Wald da."],
+                              ["say","erek","in diesem Wald haben ein paar Bauern alte Ruinen gefunden."],
+                              ["poll",["Deine Antwort:",
+                                    ["Immer diese Bauern","Ok was ist mit diesen Ruinen?"],
+                                    [[["clear"],
+                                      ["say","dario","Immer diese Bauern"],["set","bewohnerGefallen",-10],
+                                      ["say","erek","Ok wenn du nicht wissen möchtest was sie gefunden haben"],
+                                      ["say","erek","ist auch ok."],["say","erek","Schönen Tag dir noch!"],
+                                      ["say","dario","Dir auch"],],
+                                     [    ["clear"],
+                                          ["say","dario","Ok was ist mit diesen Ruinen?"],
+                                          ["set","bewohnerGefallen",+5],
+                                          ["say","erek","Diese Ruinen machen einen sehr stabilen eindruck."],
+                                          ["say","dario","Meinst du Pilgrim sollte sich die mal ansehen?"],
+                                          ["say","erek","Ja genau, ich glaube er kann da noch was lernen"],
+                                          ["say","erek","Ich gebe ihm gleich bescheid"],
+                                          ["newTask",5,"Pilgrim: Alte Mauern begutachten",[["wait",1]]],
+                                          ["runTasks"],
+                                          ["clear"],
+                                          ["time",1],
+                                          ["say","pilgrim","Die Mauern waren sehr interessand."],
+                                          ["say","pilgrim","Ich konnte viel lernen"],
+                                          ["say","pilgrim","Mit dieser Technologie"],
+                                          ["say","pilgrim","können unsere Mauern dem Feind viel besser wiederstehen"],
+                                          ["set","def",10],
+                                          
+                                    ]]]],
+                              ]
 
-game = [["sideQuest",3,[["!gold! >= 5",questBurgBauen],["!gold! >= 50",questMaterialSammeln,True],["1",questBauernUnterstutzen],["!jahr! >= 1",questSteuernsammeln],]]]  
+
+
+game = [["sideQuest",5,[["!gold! >= 5",questBurgBauen],["!gold! >= 50",questMaterialSammeln,True],["1",questGeheimnissRuinen],]]]  
 
 

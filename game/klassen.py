@@ -1,6 +1,7 @@
 import textQuelle
 
 import os
+import random
 import keyboard
 import time
 from rich.progress import track,Progress,BarColumn,TextColumn,SpinnerColumn,TimeElapsedColumn,RenderableColumn,TaskProgressColumn
@@ -9,7 +10,7 @@ from rich.console import Console
 
 console = Console()
 debug = 1
-gameSpeed = 0.1
+gameSpeed = 1
 
 class Game:
     def __init__(self, pcharacter, pvars) -> None:
@@ -19,6 +20,7 @@ class Game:
         self.quBuffer = ""
         self.barListBuffer = []
         self.barList = []
+        random.seed(self.varGet("seed"))
 
     def varSet(self, pname, pvar, pprint = False):
         """this function can set vars
@@ -104,8 +106,6 @@ class Game:
                     return i+1
 
     def checkCondition(self, pcondition):
-        #print(pcondition)
-        #print(bool(pcondition))
         while pcondition.find("!") != -1: # to replace all vars 
             t1 = pcondition[pcondition.find("!")+1:] # removes all infront the varname
             t2 = t1[:t1.find("!")]  # removes all behind the varname
@@ -198,25 +198,26 @@ class Game:
             case "sideQuest":
                 numberOfQuests = pinput[1]
                 questOptions = pinput[2]
-                randCoice = 0
+                loopwatch = 0
                 while numberOfQuests != 0:
-                    randCoice = int((self.varGet("seed")-randCoice)%len(questOptions))
-                    #print(not randCoice > len(questOptions)-1)
-                    if not randCoice > len(questOptions)-1:
-                        #print(self.checkCondition(questOptions[randCoice][0]))
-                        if self.checkCondition(questOptions[randCoice][0]):
-                            self.playMission(questOptions[randCoice][1])
-                            questOptions[randCoice].append(False)
-                            if not questOptions[randCoice][2]:
-                                
-                                questOptions[randCoice][0] = "False"
-                                print(questOptions[randCoice][0])
+                    randMission = random.choices(questOptions, k = int(numberOfQuests))
+                    for mission in randMission:
+                        if self.checkCondition(mission[0]):
+                            self.playMission(mission[1])
                             numberOfQuests -= 1
-
+                            # play only onces 
+                            mission.append(False) 
+                            if not mission[2]:
+                                mission[0] = "False"
+                    # protection from infinite loops
+                    if loopwatch >= 10000:
+                        print('loopwatch: Error in "sidequest" no fitting mission found')
+                        break
+                    loopwatch += 1
             case "time":
                 cDay = self.varGet("day")
                 cDay += pinput[1]
-                if cDay <= 365:
+                if cDay >= 365:
                     self.varSet("jahr",self.varGet("jahr")+1)
                     cDay -= 365
                 self.varSet("day",cDay)
@@ -228,11 +229,6 @@ class Game:
                 print("\n")
             case _:
                 print(f'error in "Game.runText" with ->{pinput}<-')
-
-
-
-
-
 
 
 if __name__ == "__main__":
