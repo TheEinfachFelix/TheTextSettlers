@@ -133,8 +133,45 @@ questGeheimnissRuinen = [     ["say","erek","Hallo Dario."],
                                     ]]]],
                               ]
 
+verlorenerSchatz = [
+                        ["say","erek","Hallo Dario."],
+                        ["say","erek","Ein Alter Mann berichtet über einen verlorenen Schatz"],
+                        
+                        ["poll",["Deine Antwort]",
+                              ["Alte Männer erzählen viel, bestimmt ist der Schatz schon längst Gefunden","Klingt spannend kannst du mir mehr erzählen?"],
+                              [[["clear"],["say","dario","Alte Männer erzählen viel, bestimmt ist der Schatz schon längst Gefunden"],["set","bewohnerGefallen",-5]],
+                               [    ["clear"],
+                                    ["say","dario","Klingt spannend kannst du mir mehr erzählen?"],
+                                    ["say","erek","Also der Herr erzähle,"],
+                                    ["say","erek","Das dieser Schatz vom König Kerons stammt"],
+                                    ["say","dario","Ein Schatz meines Vaters?"],
+                                    ["say","dario","Ich bin sehr interessiert"],
+                                    ["say","erek","Ich vergas das du der Sohn vom König Kerons bist",4],
+                                    ["say","erek","Der allte Mann sprach von einem Amulett mit unbekannter bedeutung",4],
+                                    ["say","dario","meinte der alte Mann das Amulett welches um meinen Hals hängt?",4],
+                                    ["say","erek","oh ja genau so beschrieb er es"],
+                                    ["say","dario","Vieleicht weiß der alte Mann mehr infos"],
+                                    ["say","erek","Ich werde ihn nochmal befragen"],
+                                    ["newTask",5,"Erek: Alten Mann befragen",[["wait",1]]],
+                                    ["runTasks"],
+                                    ["clear"],
+                                    ["time",1],
+                                    ["say","erek","Dario ich habe schlechte Nachichten!",3],
+                                    ["say","erek","Als ich den Alten mann in seinem Bett auffand",3],
+                                    ["say","erek","War er leider schon verstorben",3],
+                                    ["set", "bewohner",-1],
+                                    ["say","dario","Eine schande jetzt können wir nie erfahren was er noch wusste",4],
+                                    ["say","erek","eine wahre Schande..."],
 
 
-game = [["sideQuest",5,[["!gold! >= 5",questBurgBauen],["!gold! >= 50",questMaterialSammeln,True],["1",questGeheimnissRuinen],]]]  
+
+
+
+                               ]
+                              ]]
+                        ],
+                  ]
+
+game = [["sideQuest",5,[["!gold! >= 5",verlorenerSchatz],["!gold! >= 50",questMaterialSammeln,True],["1",questGeheimnissRuinen],]]]  
 
 

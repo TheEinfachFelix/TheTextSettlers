@@ -27,7 +27,7 @@ x if loop catcher
 Idenn
 x Die Geheimnisse der alten Ruinen
 - Die Pestepidemie
-- Die Suche nach einem verlorenen Schatz
+x Die Suche nach einem verlorenen Schatz
 - Der Aufstand der Bauern
 - Der Bau einer neuen Siedlung/Dorfzentrum
 - Gebeude bauen (Hochschule, steinmetz, lehm grube, steinbruch, sägewerk, )
